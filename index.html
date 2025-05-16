@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صممها بنفسك مع كوريان كاسيل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to bottom right, #fffdf4, #f8f7f0);
+      margin: 0;
+      padding: 0;
+    }
+    .hero {
+      background: #fff9e6;
+      padding: 60px 20px 40px;
+      text-align: center;
+      position: relative;
+    }
+    .hero img.logo {
+      width: 80px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: #2e2e2e;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #555;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    .options-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .option-box {
+      flex: 1 1 400px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.3s ease;
+      border: 1px solid #eee;
+    }
+    .option-box:hover {
+      transform: translateY(-5px);
+    }
+    .option-box h3 {
+      color: #a88a36;
+      margin-bottom: 10px;
+    }
+    .option-box p {
+      color: #444;
+      font-size: 16px;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #a88a36;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #8b742a;
+    }
+    .footer-note {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="images/logo.png" alt="Corian Castle Logo" class="logo">
+    <h1>صمّمها بنفسك مع كوريان كاسيل</h1>
+    <p>عندك تصميم؟ تمام. ما عندك؟ إحنا نخليك تصممه على ذوقك، خطوة بخطوة، بكل سهولة.</p>
+  </div>
+
+  <div class="options-container">
+    <div class="option-box" onclick="location.href='upload-design.html'">
+      <h3>📁 عندي تصميم جاهز</h3>
+      <p>ارفع تصميمك، وإحنا نضمن لك تنفيذه بأعلى جودة. بتوصلك رسالة فيها كل تفاصيل التنفيذ، وخلك جاهز بعدها نبدأ الشغل على طول.</p>
+      <button class="btn">أرفع التصميم</button>
+    </div>
+
+    <div class="option-box" onclick="location.href='designer.html'">
+      <h3>🎨 ما عندي تصميم</h3>
+      <p>هذي فرصتك! صمّم مغسلتك بنفسك على راحتك، تختار الشكل، المقاس، واللون اللي يعجبك. وإحنا نحوله لك واقع.</p>
+      <button class="btn">أبي أبدأ التصميم</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    كوريان كاسيل – نسوي لك اللي في بالك، ونزيد عليه لمسة إبداع تليق فيك ✨
+  </div>
+</body>
+</html>

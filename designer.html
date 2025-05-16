@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صمّمها بنفسك</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background-color: #f2f2f2;
+      color: #000;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    header img {
+      height: 100px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #b58e56;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-size: 16px;
+      color: #1f423e;
+      font-weight: bold;
+    }
+    .progress {
+      height: 6px;
+      background: linear-gradient(to right, #b58e56 0%, #1f423e 100%);
+      animation: progressAnim 3s infinite alternate;
+    }
+    @keyframes progressAnim {
+      0% { width: 20%; }
+      100% { width: 100%; }
+    }
+    form {
+      background: white;
+      width: 95vw;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    label {
+      margin-top: 20px;
+      display: block;
+      font-weight: bold;
+      font-size: 15px;
+      color: #333;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #fefefe;
+    }
+    .dimensions-grid, .extras-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+    .dimensions-grid small, .extras-grid small {
+      font-size: 12px;
+      color: #888;
+      display: block;
+      margin-top: 5px;
+    }
+    .canvas-section {
+      margin-top: 30px;
+    }
+    canvas {
+      border: 2px dashed #ccc;
+      display: block;
+      margin: 15px auto;
+      background: #fff;
+      border-radius: 8px;
+      max-width: 100%;
+    }
+    .notice {
+      background: #fff8e1;
+      color: #795548;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 16px;
+      text-align: center;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 25px;
+    }
+    button {
+      background-color: #b58e56;
+      color: #ffffff;
+      font-weight: bold;
+      font-family: 'Cairo', sans-serif;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+    }
+    button:hover {
+      background-color: #8e6e40;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/logo.png" alt="Corian Castle Logo">
+    <h1>كوريان كاسيل</h1>
+    <p>الخيال عليك ... والواقع علينا</p>
+  </header>
+  <div class="progress"></div>
+
+  <form id="designForm">
+    <label>رقم الواتساب للتواصل</label>
+    <input type="tel" id="phone" placeholder="رقمك بيتم عليه إرسال كل تفاصيل التصميم مباشرة" required style="text-align: right;">
+
+    <!-- باقي الحقول كما هي -->
+
+    <label>نوع المنتج</label>
+    <select id="productType">
+      <option>مغسلة</option>
+      <option>مطبخ</option>
+      <option>طاولة</option>
+      <option>وحدة خاصة</option>
+    </select>
+
+    <label>الأبعاد (بالمتر)</label>
+    <div class="dimensions-grid">
+      <div>
+        <input type="text" id="length" placeholder="الطول">
+        <small>مثلاً 1.2 متر</small>
+      </div>
+      <div>
+        <input type="text" id="width" placeholder="العرض">
+        <small>مثلاً 0.8 متر</small>
+      </div>
+      <div>
+        <input type="text" id="height" placeholder="الارتفاع">
+        <small>اكتب 0.5 للفاصلة = نصف متر</small>
+      </div>
+    </div>
+
+    <label>مكان التركيب</label>
+    <select>
+      <option>مطبخ رئيسي</option>
+      <option>حمام ضيوف</option>
+      <option>غرفة غسيل</option>
+      <option>أماكن أخرى</option>
+    </select>
+
+    <label>نوع الحنفية / الفتحة</label>
+    <select>
+      <option>بدون فتحة</option>
+      <option>فتحة واحدة</option>
+      <option>فتحتين</option>
+      <option>حسب الطلب</option>
+    </select>
+
+    <label>شكل الحواف</label>
+    <select>
+      <option>مدوّرة</option>
+      <option>حادة</option>
+      <option>مائلة</option>
+      <option>حسب الطلب</option>
+    </select>
+
+    <label>عدد الأحواض (للمغسلة أو المطبخ)</label>
+    <select>
+      <option>حوض واحد</option>
+      <option>حوضان</option>
+      <option>مدمج</option>
+    </select>
+
+    <label>اختر اللون</label>
+    <input type="color" id="colorPicker" style="width: 100%; height: 50px; border-radius: 8px; border: 1px solid #ccc;">
+
+    <label>ملاحظات إضافية</label>
+    <textarea id="notes" rows="3" placeholder="إذا ودّك تقسيمات خاصة أو إكسسوارات معينة، أو أدراج.. اكتبهم لنا هني."></textarea>
+
+    <div class="notice">الحين دورك ✏️ ارسم فكرتك مثل ما تتخيلها، وخل خيالك يشتغل، حنا نحولها لواقع مع كوريان كاسيل!</div>
+
+    <div class="canvas-section">
+      <canvas id="drawingCanvas" width="600" height="300"></canvas>
+      <div class="buttons">
+        <button type="button" onclick="clearCanvas()">مسح الرسمة</button>
+        <button type="submit">أرسل التصميم</button>
+      </div>
+    </div>
+  </form>
+
+  <script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+    canvas.addEventListener('mousedown', () => drawing = true);
+    canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+    canvas.addEventListener('mouseout', () => drawing = false);
+    canvas.addEventListener('mousemove', draw);
+
+    function draw(e) {
+      if (!drawing) return;
+      const rect = canvas.getBoundingClientRect();
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = document.getElementById('colorPicker').value;
+      ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    document.getElementById("designForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const phone = document.getElementById("phone").value;
+  const productType = document.getElementById("productType").value;
+  const length = document.getElementById("length").value;
+  const width = document.getElementById("width").value;
+  const height = document.getElementById("height").value;
+  const color = document.getElementById("colorPicker").value;
+  const notes = document.getElementById("notes").value;
+
+  const query = new URLSearchParams({
+    phone,
+    productType,
+    length,
+    width,
+    height,
+    color,
+    notes
+  }).toString();
+
+  window.location.href = "confirm-design.html?" + query;
+});
+
+  </script>
+</body>
+</html>
