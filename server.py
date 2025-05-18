@@ -13,7 +13,12 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # 🔐 مفتاح OpenRouter API (استبدله بمفتاحك الحقيقي)
-OPENROUTER_API_KEY = "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"  # ← حُط مفتاحك هنا مكان النقاط
+OPENROUTER_API_KEY = "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"
+
+# ✅ راوت الصفحة الرئيسية لتفادي خطأ Not Found
+@app.route('/')
+def home():
+    return "Corian Designer Backend is running."
 
 def generate_ai_image(prompt):
     url = "https://openrouter.ai/api/v1/generate"
@@ -86,5 +91,3 @@ def submit_design():
         "message": "تم استلام التصميم بنجاح!",
         "aiImageUrl": ai_image_url
     })
-
-
