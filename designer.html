@@ -251,7 +251,33 @@
     notes
   }).toString();
 
-  window.location.href = "confirm-design.html?" + query;
+  // 👇 هنا نبدأ نستخدم fetch عشان نرسل البيانات للسيرفر
+fetch("https://corian-designer-backend.onrender.com/submit-design", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    phone,
+    productType,
+    dimensions: `${length}x${width}x${height}`,
+    color,
+    notes,
+    image: canvas.toDataURL(),
+    prompt: `تصميم ${productType} بالأبعاد ${length}×${width}×${height} باللون ${color}`
+  })
+})
+.then(res => res.json())
+.then(data => {
+  // ✅ بعد ما السيرفر يرد بنجاح، نروح لصفحة التأكيد مع البيانات
+  const imageUrl = encodeURIComponent(data.aiImageUrl || "");
+  window.location.href = `confirm-design.html?phone=${phone}&productType=${productType}&length=${length}&width=${width}&height=${height}&color=${color}&notes=${encodeURIComponent(notes)}&imageUrl=${imageUrl}`;
+})
+.catch(error => {
+  alert("حدث خطأ أثناء إرسال التصميم، حاول مرة أخرى.");
+  console.error(error);
+});
+
 });
 
   </script>
