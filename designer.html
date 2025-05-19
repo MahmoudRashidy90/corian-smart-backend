@@ -271,7 +271,7 @@ fetch("https://corian-designer-backend.onrender.com/submit-design", {
 .then(data => {
   // ✅ بعد ما السيرفر يرد بنجاح، نروح لصفحة التأكيد مع البيانات
   const imageUrl = encodeURIComponent(data.aiImageUrl || "");
-  window.location.href = `confirm-design.html?phone=${phone}&productType=${productType}&length=${length}&width=${width}&height=${height}&color=${color}&notes=${encodeURIComponent(notes)}&imageUrl=${imageUrl}`;
+  window.location.href = `confirm-design.html?phone=${phone}&productType=${productType}&length=${length}&width=${width}&height=${height}&color=${color}&notes=${encodeURIComponent(notes)}&aiImageUrl=${imageUrl}`;
 })
 .catch(error => {
   alert("حدث خطأ أثناء إرسال التصميم، حاول مرة أخرى.");
