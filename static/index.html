@@ -5,36 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>صممها بنفسك مع كوريان كاسيل</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
   <style>
+    :root {
+      --primary-color: #a88a36;
+      --primary-hover: #8b742a;
+      --bg-light: #fff9e6;
+      --text-dark: #2e2e2e;
+      --text-medium: #555;
+      --text-light: #777;
+      --card-bg: #fff;
+      --border-light: #eee;
+    }
+    
     body {
       font-family: 'Cairo', sans-serif;
       background: linear-gradient(to bottom right, #fffdf4, #f8f7f0);
       margin: 0;
       padding: 0;
     }
+    
     .hero {
-      background: #fff9e6;
+      background: var(--bg-light);
       padding: 60px 20px 40px;
       text-align: center;
       position: relative;
     }
+    
     .hero img.logo {
       width: 80px;
       position: absolute;
       top: 20px;
       right: 20px;
     }
+    
     .hero h1 {
       font-size: 36px;
       margin-bottom: 15px;
-      color: #2e2e2e;
+      color: var(--text-dark);
     }
+    
     .hero p {
       font-size: 18px;
-      color: #555;
+      color: var(--text-medium);
       margin: 0 auto;
       max-width: 600px;
     }
+    
     .options-container {
       display: flex;
       flex-wrap: wrap;
@@ -44,67 +61,97 @@
       max-width: 1100px;
       margin: auto;
     }
+    
     .option-box {
       flex: 1 1 400px;
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 16px;
       padding: 30px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
       text-align: center;
       transition: transform 0.3s ease;
-      border: 1px solid #eee;
+      border: 1px solid var(--border-light);
+      cursor: pointer;
     }
+    
     .option-box:hover {
       transform: translateY(-5px);
     }
+    
     .option-box h3 {
-      color: #a88a36;
+      color: var(--primary-color);
       margin-bottom: 10px;
     }
+    
     .option-box p {
-      color: #444;
+      color: var(--text-dark);
       font-size: 16px;
     }
+    
     .btn {
       margin-top: 20px;
       padding: 12px 24px;
-      background-color: #a88a36;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 8px;
       font-size: 15px;
       cursor: pointer;
+      font-family: 'Cairo', sans-serif;
     }
+    
     .btn:hover {
-      background-color: #8b742a;
+      background-color: var(--primary-hover);
     }
+    
     .footer-note {
       text-align: center;
       font-size: 14px;
-      color: #777;
+      color: var(--text-light);
       padding: 20px;
+    }
+    
+    /* Improved responsiveness */
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 28px;
+      }
+      
+      .hero p {
+        font-size: 16px;
+      }
+      
+      .option-box {
+        padding: 20px;
+      }
+      
+      .hero img.logo {
+        width: 60px;
+        top: 15px;
+        right: 15px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="hero">
-    <img src="images/logo.png" alt="Corian Castle Logo" class="logo">
+    <img src="static/images/logo.png" alt="Corian Castle Logo" class="logo">
     <h1>صمّمها بنفسك مع كوريان كاسيل</h1>
     <p>عندك تصميم؟ تمام. ما عندك؟ إحنا نخليك تصممه على ذوقك، خطوة بخطوة، بكل سهولة.</p>
   </div>
 
   <div class="options-container">
-    <div class="option-box" onclick="location.href='upload-design.html'">
+    <a href="upload-design.html" class="option-box" style="text-decoration: none; color: inherit;">
       <h3>📁 عندي تصميم جاهز</h3>
       <p>ارفع تصميمك، وإحنا نضمن لك تنفيذه بأعلى جودة. بتوصلك رسالة فيها كل تفاصيل التنفيذ، وخلك جاهز بعدها نبدأ الشغل على طول.</p>
       <button class="btn">أرفع التصميم</button>
-    </div>
+    </a>
 
-    <div class="option-box" onclick="location.href='designer.html'">
+    <a href="designer.html" class="option-box" style="text-decoration: none; color: inherit;">
       <h3>🎨 ما عندي تصميم</h3>
       <p>هذي فرصتك! صمّم مغسلتك بنفسك على راحتك، تختار الشكل، المقاس، واللون اللي يعجبك. وإحنا نحوله لك واقع.</p>
       <button class="btn">أبي أبدأ التصميم</button>
-    </div>
+    </a>
   </div>
 
   <div class="footer-note">
