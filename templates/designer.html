@@ -158,7 +158,7 @@
     </div>
 
     <label>مكان التركيب</label>
-    <select>
+    <select id="installationPlace">
       <option>مطبخ رئيسي</option>
       <option>حمام ضيوف</option>
       <option>غرفة غسيل</option>
@@ -166,7 +166,7 @@
     </select>
 
     <label>نوع الحنفية / الفتحة</label>
-    <select>
+    <select id="faucetType">
       <option>بدون فتحة</option>
       <option>فتحة واحدة</option>
       <option>فتحتين</option>
@@ -174,7 +174,7 @@
     </select>
 
     <label>شكل الحواف</label>
-    <select>
+    <select id="edgeStyle">
       <option>مدوّرة</option>
       <option>حادة</option>
       <option>مائلة</option>
@@ -182,7 +182,7 @@
     </select>
 
     <label>عدد الأحواض (للمغسلة أو المطبخ)</label>
-    <select>
+    <select id="sinkCount">
       <option>حوض واحد</option>
       <option>حوضان</option>
       <option>مدمج</option>
@@ -230,56 +230,92 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    document.getElementById("designForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+    <script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  canvas.addEventListener('mousedown', () => drawing = true);
+  canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+  canvas.addEventListener('mouseout', () => drawing = false);
+  canvas.addEventListener('mousemove', draw);
 
-  const phone = document.getElementById("phone").value;
-  const productType = document.getElementById("productType").value;
-  const length = document.getElementById("length").value;
-  const width = document.getElementById("width").value;
-  const height = document.getElementById("height").value;
-  const color = document.getElementById("colorPicker").value;
-  const notes = document.getElementById("notes").value;
+  function draw(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = document.getElementById('colorPicker').value;
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  }
 
-  const query = new URLSearchParams({
-    phone,
-    productType,
-    length,
-    width,
-    height,
-    color,
-    notes
-  }).toString();
+  function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
-  // 👇 هنا نبدأ نستخدم fetch عشان نرسل البيانات للسيرفر
-fetch("https://corian-designer-backend.onrender.com/submit-design", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    phone,
-    productType,
-    dimensions: `${length}x${width}x${height}`,
-    color,
-    notes,
-    image: canvas.toDataURL(),
-    prompt: `تصميم ${productType} بالأبعاد ${length}×${width}×${height} باللون ${color}`
-  })
-})
-.then(res => res.json())
-.then(data => {
-  // ✅ بعد ما السيرفر يرد بنجاح، نروح لصفحة التأكيد مع البيانات
-  const imageUrl = encodeURIComponent(data.aiImageUrl || "");
-  window.location.href = `confirm-design.html?phone=${phone}&productType=${productType}&length=${length}&width=${width}&height=${height}&color=${color}&notes=${encodeURIComponent(notes)}&aiImageUrl=${imageUrl}`;
-})
-.catch(error => {
-  alert("حدث خطأ أثناء إرسال التصميم، حاول مرة أخرى.");
-  console.error(error);
-});
+  document.getElementById("designForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-});
+    const phone = document.getElementById("phone").value;
+    const productType = document.getElementById("productType").value;
+    const length = document.getElementById("length").value;
+    const width = document.getElementById("width").value;
+    const height = document.getElementById("height").value;
+    const color = document.getElementById("colorPicker").value;
+    const notes = document.getElementById("notes").value;
 
-  </script>
+    // 🆕 العناصر الجديدة
+    const installationPlace = document.getElementById("installationPlace").value;
+    const faucetType = document.getElementById("faucetType").value;
+    const edgeStyle = document.getElementById("edgeStyle").value;
+    const sinkCount = document.getElementById("sinkCount").value;
+
+    const query = new URLSearchParams({
+      phone,
+      productType,
+      length,
+      width,
+      height,
+      color,
+      notes,
+      installationPlace,
+      faucetType,
+      edgeStyle,
+      sinkCount
+    }).toString();
+
+    fetch("https://corian-designer-backend.onrender.com/submit-design", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        phone,
+        productType,
+        dimensions: `${length}x${width}x${height}`,
+        color,
+        notes,
+        installationPlace,
+        faucetType,
+        edgeStyle,
+        sinkCount,
+        image: canvas.toDataURL(),
+        prompt: `تصميم ${productType} بالأبعاد ${length}×${width}×${height} باللون ${color}، مكان التركيب: ${installationPlace}، نوع الفتحة: ${faucetType}، شكل الحافة: ${edgeStyle}، عدد الأحواض: ${sinkCount}`
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const imageUrl = encodeURIComponent(data.aiImageUrl || "");
+      window.location.href = `confirm-design.html?phone=${phone}&productType=${productType}&length=${length}&width=${width}&height=${height}&color=${color}&notes=${encodeURIComponent(notes)}&aiImageUrl=${imageUrl}`;
+    })
+    .catch(error => {
+      alert("حدث خطأ أثناء إرسال التصميم، حاول مرة أخرى.");
+      console.error(error);
+    });
+  });
+</script>
+
 </body>
 </html>
