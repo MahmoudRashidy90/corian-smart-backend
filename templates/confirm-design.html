@@ -77,15 +77,20 @@ const params = new URLSearchParams(window.location.search);
 
 const summary = `
   <strong>نوع المنتج:</strong> ${params.get("productType")}<br>
-  <strong>الأبعاد:</strong> ${params.get("dimensions") || `${params.get("length")}×${params.get("width")}×${params.get("height")}`} م<br>
+  <strong>الأبعاد:</strong> ${params.get("length")} × ${params.get("width")} × ${params.get("height")} متر<br>
+  <strong>مكان التركيب:</strong> ${params.get("installationPlace")}<br>
+  <strong>نوع الفتحة:</strong> ${params.get("faucetType")}<br>
+  <strong>شكل الحافة:</strong> ${params.get("edgeStyle")}<br>
+  <strong>عدد الأحواض:</strong> ${params.get("sinkCount")}<br>
   <strong>اللون:</strong> ${params.get("color")}<br>
   <strong>ملاحظات:</strong> ${params.get("notes") || "لا توجد"}<br>
 `;
 
+
 document.getElementById("summary").innerHTML = summary;
 
 const aiImage = document.getElementById("aiImage");
-aiImage.src = params.get("imageUrl") || "https://placehold.co/600x300?text=No+AI+Image";
+aiImage.src = params.get("aiImageUrl") || "https://placehold.co/600x300?text=No+AI+Image";
 
 function confirmDesign() {
   alert("🎉 تم إرسال التصميم لفريق كوريان كاسيل! بيتم التواصل معك قريبًا على الواتساب.");
