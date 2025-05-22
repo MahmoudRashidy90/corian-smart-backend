@@ -106,3 +106,18 @@ def submit_design():
 # ✅ السطر ده مهم عشان Render يعرف يشغّل السيرفر
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
+
+from flask import render_template
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/designer')
+def designer():
+    return render_template('designer.html')
+
+@app.route('/confirm-design')
+def confirm_design():
+    return render_template('confirm-design.html')
+
