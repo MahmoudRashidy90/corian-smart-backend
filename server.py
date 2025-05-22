@@ -49,6 +49,10 @@ def submit_design():
     color = data.get('color')
     notes = data.get('notes')
     image_data = data.get('image')  # base64 image
+installation_place = data.get('installationPlace')
+faucet_type = data.get('faucetType')
+edge_style = data.get('edgeStyle')
+sink_count = data.get('sinkCount')
 
     filename = None
     if image_data and image_data.startswith("data:image"):
@@ -63,18 +67,29 @@ def submit_design():
             return jsonify({"status": "error", "message": f"خطأ في حفظ الرسم: {str(e)}"}), 400
 
     # 🧠 توليد صورة من AI بناءً على التصميم
-    prompt = f"تصميم {product_type} بلون {color}، بالأبعاد {dimensions}. ملاحظات العميل: {notes}. التصميم مودرن وفخم ومناسب للمنزل العصري."
+    prompt = (
+    f"تصميم {product_type} بالأبعاد {dimensions}، باللون {color}، "
+    f"مكان التركيب: {installation_place}، نوع الفتحة: {faucet_type}، "
+    f"شكل الحافة: {edge_style}، عدد الأحواض: {sink_count}. "
+    f"ملاحظات إضافية: {notes}. التصميم مودرن وفخم ومناسب للمنزل العصري."
+)
+
     ai_image_url = generate_ai_image(prompt)
 
     # حفظ الطلب في JSON
     order = {
-        "productType": product_type,
-        "dimensions": dimensions,
-        "color": color,
-        "notes": notes,
-        "imageFilename": filename,
-        "aiImageUrl": ai_image_url
-    }
+    "productType": product_type,
+    "dimensions": dimensions,
+    "color": color,
+    "notes": notes,
+    "installationPlace": installation_place,
+    "faucetType": faucet_type,
+    "edgeStyle": edge_style,
+    "sinkCount": sink_count,
+    "imageFilename": filename,
+    "aiImageUrl": ai_image_url
+}
+
 
     if not os.path.exists("smart_orders.json"):
         with open("smart_orders.json", "w", encoding="utf-8") as f:
