@@ -15,10 +15,10 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # 🔐 مفتاح OpenRouter API
 OPENROUTER_API_KEY = "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"
 
-# ✅ الصفحة الرئيسية (API فقط)
+# ✅ الصفحة الرئيسية تعرض صفحة الهبوط
 @app.route('/')
 def home():
-    return "Corian Designer Backend is running."
+    return render_template('index.html')
 
 # ✅ صفحات HTML (Frontend)
 @app.route('/index')
