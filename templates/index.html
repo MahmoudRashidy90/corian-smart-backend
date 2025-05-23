@@ -17,41 +17,41 @@
       --card-bg: #fff;
       --border-light: #eee;
     }
-    
+
     body {
       font-family: 'Cairo', sans-serif;
       background: linear-gradient(to bottom right, #fffdf4, #f8f7f0);
       margin: 0;
       padding: 0;
     }
-    
+
     .hero {
       background: var(--bg-light);
       padding: 60px 20px 40px;
       text-align: center;
       position: relative;
     }
-    
+
     .hero img.logo {
       width: 80px;
       position: absolute;
       top: 20px;
       right: 20px;
     }
-    
+
     .hero h1 {
       font-size: 36px;
       margin-bottom: 15px;
       color: var(--text-dark);
     }
-    
+
     .hero p {
       font-size: 18px;
       color: var(--text-medium);
       margin: 0 auto;
       max-width: 600px;
     }
-    
+
     .options-container {
       display: flex;
       flex-wrap: wrap;
@@ -61,7 +61,7 @@
       max-width: 1100px;
       margin: auto;
     }
-    
+
     .option-box {
       flex: 1 1 400px;
       background: var(--card-bg);
@@ -73,21 +73,21 @@
       border: 1px solid var(--border-light);
       cursor: pointer;
     }
-    
+
     .option-box:hover {
       transform: translateY(-5px);
     }
-    
+
     .option-box h3 {
       color: var(--primary-color);
       margin-bottom: 10px;
     }
-    
+
     .option-box p {
       color: var(--text-dark);
       font-size: 16px;
     }
-    
+
     .btn {
       margin-top: 20px;
       padding: 12px 24px;
@@ -99,32 +99,31 @@
       cursor: pointer;
       font-family: 'Cairo', sans-serif;
     }
-    
+
     .btn:hover {
       background-color: var(--primary-hover);
     }
-    
+
     .footer-note {
       text-align: center;
       font-size: 14px;
       color: var(--text-light);
       padding: 20px;
     }
-    
-    /* Improved responsiveness */
+
     @media (max-width: 480px) {
       .hero h1 {
         font-size: 28px;
       }
-      
+
       .hero p {
         font-size: 16px;
       }
-      
+
       .option-box {
         padding: 20px;
       }
-      
+
       .hero img.logo {
         width: 60px;
         top: 15px;
@@ -141,13 +140,13 @@
   </div>
 
   <div class="options-container">
-    <a href="upload-design.html" class="option-box" style="text-decoration: none; color: inherit;">
+    <a href="{{ url_for('upload_design') }}" class="option-box" style="text-decoration: none; color: inherit;">
       <h3>📁 عندي تصميم جاهز</h3>
       <p>ارفع تصميمك، وإحنا نضمن لك تنفيذه بأعلى جودة. بتوصلك رسالة فيها كل تفاصيل التنفيذ، وخلك جاهز بعدها نبدأ الشغل على طول.</p>
       <button class="btn">أرفع التصميم</button>
     </a>
 
-    <a href="designer.html" class="option-box" style="text-decoration: none; color: inherit;">
+    <a href="{{ url_for('designer') }}" class="option-box" style="text-decoration: none; color: inherit;">
       <h3>🎨 ما عندي تصميم</h3>
       <p>هذي فرصتك! صمّم مغسلتك بنفسك على راحتك، تختار الشكل، المقاس، واللون اللي يعجبك. وإحنا نحوله لك واقع.</p>
       <button class="btn">أبي أبدأ التصميم</button>
