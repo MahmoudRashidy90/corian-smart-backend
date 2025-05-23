@@ -48,17 +48,28 @@ def generate_ai_image(prompt):
         "size": "1024x1024"
     }
 
-    response = requests.post(url, headers=headers, json=payload)
-    if response.status_code == 200:
-        data = response.json()
-        return data["data"][0]["url"]
-    else:
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        print("AI API status:", response.status_code)
+        print("AI API response:", response.text)
+        if response.status_code == 200:
+            data = response.json()
+            return data["data"][0]["url"]
+        else:
+            return None
+    except Exception as e:
+        print("AI API Exception:", str(e))
         return None
 
 # ✅ استقبال بيانات التصميم
 @app.route('/submit-design', methods=['POST'])
 def submit_design():
-    data = request.json
+    # يدعم استقبال البيانات سواء JSON أو form-data
+    if request.is_json:
+        data = request.get_json()
+    else:
+        data = request.form
+
     product_type = data.get('productType')
     dimensions = data.get('dimensions')
     color = data.get('color')
@@ -108,10 +119,14 @@ def submit_design():
             json.dump([], f, ensure_ascii=False)
 
     with open("smart_orders.json", "r+", encoding="utf-8") as f:
-        orders = json.load(f)
+        try:
+            orders = json.load(f)
+        except json.JSONDecodeError:
+            orders = []
         orders.append(order)
         f.seek(0)
         json.dump(orders, f, indent=4, ensure_ascii=False)
+        f.truncate()
 
     return jsonify({
         "status": "success",
