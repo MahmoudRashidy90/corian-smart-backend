@@ -35,30 +35,41 @@ def confirm_design():
 
 # ✅ توليد صورة بالذكاء الاصطناعي
 def generate_ai_image(prompt):
-    url = "https://openrouter.ai/api/v1/generate"
+    url = "https://api.replicate.com/v1/predictions"
     headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "https://corian-castle.com",
-        "X-Title": "Corian Castle Smart Designer"
+        "Authorization": f"Token r8_NCZAqHJpI7mgxnopzGtikPhoFVvr4BH2l9N5y",
+        "Content-Type": "application/json"
     }
     payload = {
-        "model": "stability-ai/sdxl",
-        "prompt": prompt,
-        "num_images": 1,
-        "size": "1024x1024"
+        "version": "cc201eaa92792811a960a37f1c5c2f99ef99e320d7299b153c36f48a6b5a1a13",  # Stable Diffusion XL v1.0
+        "input": {
+            "prompt": prompt
+        }
     }
 
     try:
+        # إنشاء الطلب الأولي للتوليد
         response = requests.post(url, headers=headers, json=payload)
-        print("AI API status:", response.status_code)
-        print("AI API response:", response.text)
-        if response.status_code == 200:
-            data = response.json()
-            return data["data"][0]["url"]
-        else:
+        if response.status_code != 201:
+            print("خطأ في بدء التوليد:", response.text)
             return None
+
+        prediction = response.json()
+        prediction_url = prediction["urls"]["get"]
+
+        # انتظار التوليد (Polling)
+        while True:
+            status_response = requests.get(prediction_url, headers=headers)
+            status_data = status_response.json()
+
+            if status_data["status"] == "succeeded":
+                return status_data["output"][0]  # رابط الصورة
+            elif status_data["status"] == "failed":
+                print("فشل التوليد:", status_data)
+                return None
+
     except Exception as e:
-        print("AI API Exception:", str(e))
+        print("AI Exception:", str(e))
         return None
 
 # ✅ استقبال بيانات التصميم
