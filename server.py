@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import os
 import json
 import base64
 from datetime import datetime
-import requests  # استخدمنا requests بدل openai
+import requests
 
 app = Flask(__name__)
 CORS(app)
@@ -15,10 +15,25 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # 🔐 مفتاح OpenRouter API
 OPENROUTER_API_KEY = "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"
 
+# ✅ الصفحة الرئيسية (API فقط)
 @app.route('/')
 def home():
     return "Corian Designer Backend is running."
 
+# ✅ صفحات HTML (Frontend)
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+@app.route('/designer')
+def designer():
+    return render_template('designer.html')
+
+@app.route('/confirm-design')
+def confirm_design():
+    return render_template('confirm-design.html')
+
+# ✅ توليد صورة بالذكاء الاصطناعي
 def generate_ai_image(prompt):
     url = "https://openrouter.ai/api/v1/generate"
     headers = {
@@ -40,6 +55,7 @@ def generate_ai_image(prompt):
     else:
         return None
 
+# ✅ استقبال بيانات التصميم
 @app.route('/submit-design', methods=['POST'])
 def submit_design():
     data = request.json
@@ -103,21 +119,6 @@ def submit_design():
         "aiImageUrl": ai_image_url
     })
 
-# ✅ السطر ده مهم عشان Render يعرف يشغّل السيرفر
+# ✅ ضروري لتشغيل التطبيق على Render
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
-
-from flask import render_template
-
-@app.route('/index')
-def index():
-    return render_template('index.html')
-
-@app.route('/designer')
-def designer():
-    return render_template('designer.html')
-
-@app.route('/confirm-design')
-def confirm_design():
-    return render_template('confirm-design.html')
-
